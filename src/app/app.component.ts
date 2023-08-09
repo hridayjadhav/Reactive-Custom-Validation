@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormBuilder, Validators, } from '@angular/forms';
+import { noSpace } from './validators/nospace.validators';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,30 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'customformvalidation';
+
+
+  form : any;
+
+  constructor(fb: FormBuilder){
+    this.form = fb.group({
+
+      username : ['', [
+        Validators.required,
+        Validators.minLength(5),
+        noSpace.nospaceValidations
+      ]],
+
+      password : ['', Validators.required]
+
+    })  
+  }
+
+
+
+  get fc () {
+    return this.form.controls;
+  }
+
+
+
 }
